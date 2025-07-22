@@ -4,6 +4,8 @@ struct TaskListView: View {
     @Binding var tasks: [Task]
     @State private var showingAddTask = false
     @State private var editingTask: Task? = nil
+    @State private var taskToDelete: IndexSet?
+    @State private var showDeleteAlert = false
 
     var body: some View {
         NavigationView {
@@ -21,7 +23,10 @@ struct TaskListView: View {
                         Spacer()
                     }
                 }
-                .onDelete(perform: deleteTask)
+                .onDelete { offsets in
+                    taskToDelete = offsets
+                    showDeleteAlert = true
+                }
             }
             .navigationTitle("MyTasks+")
             .toolbar {
@@ -37,6 +42,19 @@ struct TaskListView: View {
             .sheet(isPresented: $showingAddTask) {
                 AddTaskView(tasks: $tasks)
             }
+            .alert("Delete Task?", isPresented: $showDeleteAlert, actions: {
+                Button("Delete", role: .destructive) {
+                    if let offsets = taskToDelete {
+                        tasks.remove(atOffsets: offsets)
+                    }
+                    taskToDelete = nil
+                }
+                Button("Cancel", role: .cancel) {
+                    taskToDelete = nil
+                }
+            }, message: {
+                Text("Are you sure you want to delete this task?")
+            })
         }
     }
 
