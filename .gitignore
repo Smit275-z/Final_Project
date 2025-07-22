@@ -1,0 +1,14 @@
+DerivedData/
+build/
+*.xcworkspace
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+*.moved-aside
+*.xcuserdatad/
+
+swiftpm/xcode/
+.swiftpm/build/
+.swiftpm/Package.resolved
+
+.DS_Store
