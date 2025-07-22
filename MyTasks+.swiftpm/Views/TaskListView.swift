@@ -1,23 +1,24 @@
 import SwiftUI
 
 struct TaskListView: View {
-    @State private var tasks: [Task] = []
+    @Binding var tasks: [Task]
     @State private var showingAddTask = false
     @State private var editingTask: Task? = nil
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(tasks) { task in
-                    Button(action: { editingTask = task }) {
-                        HStack {
-                            Text(task.title)
-                            Spacer()
-                            if task.isCompleted {
-                                Image(systemName: "checkmark.circle")
-                                    .foregroundColor(.green)
-                            }
+                ForEach($tasks) { $task in
+                    HStack {
+                        Button(action: { task.isCompleted.toggle() }) {
+                            Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
+                                .foregroundColor(task.isCompleted ? .green : .gray)
                         }
+                        Text(task.title)
+                            .onTapGesture {
+                                editingTask = task
+                            }
+                        Spacer()
                     }
                 }
                 .onDelete(perform: deleteTask)
