@@ -1,10 +1,10 @@
 import SwiftUI
 
 @main
-struct MyTaskPlusApp: App {
+struct MyTasksPlusApp: App {
     var body: some Scene {
         WindowGroup {
-            TaskListView()
+            MainTabView()
         }
     }
 }
