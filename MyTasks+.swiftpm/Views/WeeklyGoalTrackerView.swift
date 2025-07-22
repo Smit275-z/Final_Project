@@ -5,21 +5,24 @@ struct WeeklyGoalTrackerView: View {
         Goal(title: "Exercise 3 times", description: "Go to gym or run at least 3 times this week.", weekNumber: 30, status: .inProgress)
     ]
     @State private var showingAddGoal = false
+    @State private var editingGoal: Goal? = nil
 
     var body: some View {
         NavigationView {
             List {
                 ForEach(goals) { goal in
-                    VStack(alignment: .leading) {
-                        Text(goal.title)
-                            .font(.headline)
-                        Text(goal.description)
-                            .font(.subheadline)
-                        Text("Week: \(goal.weekNumber)")
-                            .font(.caption)
-                        Text("Status: \(goal.status.rawValue.capitalized)")
-                            .font(.caption)
-                            .foregroundColor(goal.status == .completed ? .green : .primary)
+                    Button(action: { editingGoal = goal }) {
+                        VStack(alignment: .leading) {
+                            Text(goal.title)
+                                .font(.headline)
+                            Text(goal.description)
+                                .font(.subheadline)
+                            Text("Week: \(goal.weekNumber)")
+                                .font(.caption)
+                            Text("Status: \(goal.status.rawValue.capitalized)")
+                                .font(.caption)
+                                .foregroundColor(goal.status == .completed ? .green : .primary)
+                        }
                     }
                 }
                 .onDelete { offsets in
@@ -32,6 +35,11 @@ struct WeeklyGoalTrackerView: View {
                     Button(action: { showingAddGoal = true }) {
                         Image(systemName: "plus")
                     }
+                }
+            }
+            .sheet(item: $editingGoal) { goalToEdit in
+                EditGoalView(goal: goalToEdit, goals: $goals) {
+                    editingGoal = nil
                 }
             }
             .sheet(isPresented: $showingAddGoal) {
