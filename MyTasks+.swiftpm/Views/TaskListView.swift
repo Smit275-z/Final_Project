@@ -3,17 +3,20 @@ import SwiftUI
 struct TaskListView: View {
     @State private var tasks: [Task] = []
     @State private var showingAddTask = false
+    @State private var editingTask: Task? = nil
 
     var body: some View {
         NavigationView {
             List {
                 ForEach(tasks) { task in
-                    HStack {
-                        Text(task.title)
-                        Spacer()
-                        if task.isCompleted {
-                            Image(systemName: "checkmark.circle")
-                                .foregroundColor(.green)
+                    Button(action: { editingTask = task }) {
+                        HStack {
+                            Text(task.title)
+                            Spacer()
+                            if task.isCompleted {
+                                Image(systemName: "checkmark.circle")
+                                    .foregroundColor(.green)
+                            }
                         }
                     }
                 }
@@ -26,6 +29,9 @@ struct TaskListView: View {
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .sheet(item: $editingTask) { taskToEdit in
+                EditTaskView(task: taskToEdit, tasks: $tasks, dismiss: { editingTask = nil })
             }
             .sheet(isPresented: $showingAddTask) {
                 AddTaskView(tasks: $tasks)
