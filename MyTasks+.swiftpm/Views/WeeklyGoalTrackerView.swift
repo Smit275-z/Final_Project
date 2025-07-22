@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct WeeklyGoalTrackerView: View {
-    @State private var goals: [Goal] = [
-        Goal(title: "Exercise 3 times", description: "Go to gym or run at least 3 times this week.", weekNumber: 30, status: .inProgress)
-    ]
+    @Binding var goals: [Goal]
     @State private var showingAddGoal = false
     @State private var editingGoal: Goal? = nil
 

@@ -6,7 +6,7 @@ enum GoalStatus: String, Codable, CaseIterable {
     case missed
 }
 
-struct Goal: Identifiable, Codable {
+struct Goal: Identifiable, Codable, Equatable {
     var id = UUID()
     var title: String
     var description: String
