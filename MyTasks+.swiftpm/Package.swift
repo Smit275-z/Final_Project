@@ -8,19 +8,19 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "TaskManager",
+    name: "MyTasks+",
     platforms: [
         .iOS("16.0")
     ],
     products: [
         .iOSApplication(
-            name: "TaskManager",
+            name: "MyTasks+",
             targets: ["AppModule"],
-            bundleIdentifier: "ca.myscc.w0849357.TaskManager",
+            bundleIdentifier: "ca.myscc.w0849357.MyTasks-",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .bunny),
-            accentColor: .presetColor(.pink),
+            appIcon: .placeholder(icon: .openBook),
+            accentColor: .presetColor(.brown),
             supportedDeviceFamilies: [
                 .pad,
                 .phone
