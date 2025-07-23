@@ -1,5 +1,6 @@
 import SwiftUI
 
+// View for editing an existing task in the list
 struct EditTaskView: View {
     var task: Task
     @Binding var tasks: [Task]
@@ -19,8 +20,8 @@ struct EditTaskView: View {
     var body: some View {
         NavigationView {
             Form {
-                TextField("Task Title", text: $title)
-                TextField("Notes (optional)", text: $notes)
+                TextField("Task Title", text: $title)  // Edit task title
+                TextField("Notes (optional)", text: $notes)   // Edit task notes
             }
             .navigationTitle("Edit Task")
             .toolbar {

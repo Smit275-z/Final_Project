@@ -9,7 +9,9 @@ struct Task: Identifiable, Codable, Equatable {
     var title: String
     var notes: String?
     var isCompleted: Bool
-    var status: TaskStatus {
-        isCompleted ? .completed : .pending
-    }
+    
+    // Computed property to get the status as a TaskStatus enum
+        var status: TaskStatus {
+            isCompleted ? .completed : .pending
+        }
 }

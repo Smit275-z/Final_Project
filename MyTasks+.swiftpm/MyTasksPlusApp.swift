@@ -1,10 +1,10 @@
 import SwiftUI
 
-@main
+@main  // Entry Point
 struct MyTasksPlusApp: App {
     var body: some Scene {
         WindowGroup {
-            MainTabView()
+            MainTabView() // The main window of the app displays MainTabView UI
         }
     }
 }

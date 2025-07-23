@@ -1,5 +1,6 @@
 import SwiftUI
 
+// View that displays, adds, edits, and deletes weekly goals
 struct WeeklyGoalTrackerView: View {
     @Binding var goals: [Goal]
     @State private var showingAddGoal = false
@@ -8,8 +9,8 @@ struct WeeklyGoalTrackerView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(goals) { goal in
-                    Button(action: { editingGoal = goal }) {
+                ForEach(goals) { goal in  // ForEach displays all goals in the list
+                    Button(action: { editingGoal = goal }) {  // Tapping a goal opens it for editing
                         VStack(alignment: .leading) {
                             Text(goal.title)
                                 .font(.headline)
@@ -24,7 +25,7 @@ struct WeeklyGoalTrackerView: View {
                     }
                 }
                 .onDelete { offsets in
-                    goals.remove(atOffsets: offsets)
+                    goals.remove(atOffsets: offsets) // swipe to delete goals
                 }
             }
             .navigationTitle("Weekly Goals")

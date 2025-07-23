@@ -1,15 +1,18 @@
 import SwiftUI
 
+// View for editing an existing goal
 struct EditGoalView: View {
     var goal: Goal
     @Binding var goals: [Goal]
     var dismiss: () -> Void
 
+// State properties
     @State private var title: String
     @State private var description: String
     @State private var weekNumber: Int
     @State private var status: GoalStatus
 
+// Custom initializer to set initial values of state properties from the goal
     init(goal: Goal, goals: Binding<[Goal]>, dismiss: @escaping () -> Void) {
         self.goal = goal
         self._goals = goals
@@ -22,7 +25,7 @@ struct EditGoalView: View {
 
     var body: some View {
         NavigationView {
-            Form {
+            Form {  // Edit Feature
                 TextField("Goal Title", text: $title)
                 TextField("Description", text: $description)
                 Stepper("Week: \(weekNumber)", value: $weekNumber, in: 1...52)
@@ -34,12 +37,12 @@ struct EditGoalView: View {
             }
             .navigationTitle("Edit Goal")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigationBarLeading) {  // Cancel Button
                     Button("Cancel") { dismiss() }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .navigationBarTrailing) {  // Save Button
                     Button("Save") {
-                        if let index = goals.firstIndex(where: { $0.id == goal.id }) {
+                        if let index = goals.firstIndex(where: { $0.id == goal.id }) {  // Find and update the goals array
                             goals[index].title = title
                             goals[index].description = description
                             goals[index].weekNumber = weekNumber
@@ -47,7 +50,7 @@ struct EditGoalView: View {
                         }
                         dismiss()
                     }
-                    .disabled(title.isEmpty)
+                    .disabled(title.isEmpty)  // Disable save if title is empty
                 }
             }
         }
